@@ -1,0 +1,22 @@
+export interface Character {
+  id: number
+  characterBaseMasterId: number
+  name: string
+  description: string
+  rarity: string
+  attribute: string
+  minLevelStatus: {
+    vocal: number
+    expression: number
+    concentration: number
+  }
+  starActMasterId: number
+  senseMasterId: number
+  forbidGenericItemBloom: boolean
+  bloomBonusGroupMasterId: number
+  senseEnhanceItemGroupMasterId: number
+  firstEpisodeReleaseItemGroupId: number
+  secondEpisodeReleaseItemGroupId: number
+  displayStartAt: number
+  displayEndAt: number
+}
