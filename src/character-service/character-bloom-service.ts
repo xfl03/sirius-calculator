@@ -17,14 +17,38 @@ export class CharacterBloomService {
    * 获取特定类型的开花加成总值
    * @param id
    * @param type
+   * @param bloom
    */
-  public async getBloomBonusTotal (id: number, type: string): Promise<number> {
+  public async getBloomBonusTotal (id: number, type: string, bloom: number = 5): Promise<number> {
     const bonus = await this.getCharacterBloomBonusGroup(id)
     const effects = await this.effectService
-      .getEffects(bonus.bloomBonuses.map(it => it.effectMasterId))
+      .getEffects(bonus.bloomBonuses.filter(it => it.phase <= bloom)
+        .map(it => it.effectMasterId))
     return effects
       .filter(it => it.type === type)
       .map(it => it.details[0].value)
       .reduce((sum, it) => sum + it, 0)
   }
+
+  /**
+   * 获得开花（bloom）加成的详细信息
+   * @param id
+   */
+  public async getBloomBonusDetails (id: number): Promise<BloomBonusDetail[]> {
+    const bonuses = await this.getCharacterBloomBonusGroup(id)
+    return Array.from(new Set(bonuses.bloomBonuses.map(it => it.phase)))
+      .sort((a, b) => a - b).map(phase => {
+        return {
+          phase,
+          descriptions: bonuses.bloomBonuses
+            .filter(it => it.phase === phase)
+            .map(it => it.description)
+        }
+      })
+  }
+}
+
+export interface BloomBonusDetail {
+  phase: number
+  descriptions: string[]
 }
