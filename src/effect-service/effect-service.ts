@@ -2,7 +2,7 @@ import { type DataProvider } from '../data-provider/data-provider'
 import { DataProviderFactory } from '../data-provider/data-provider-factory'
 import { type Effect } from '../master/effect'
 import { findOrThrow } from '../util/collection-util'
-import { toFixedString, toRangeString } from '../util/number-util'
+import { toRangeString } from '../util/number-util'
 
 export class EffectService {
   public constructor (private readonly dataProvider: DataProvider = DataProviderFactory.defaultDataProvider()) {

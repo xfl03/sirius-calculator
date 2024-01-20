@@ -7,12 +7,16 @@ import { type StarActDetail, StarActService } from './star-act-service'
 import { type Character } from '../master/character'
 import { siriusTimestampToDate } from '../util/time-util'
 import { CharacterCalculator, type CharacterStatusDetail } from '../character-calculator/character-calculator'
+import { GachaService } from '../gacha-service/gacha-service'
+import { StoryEventService } from '../story-event/story-event-service'
 
 export class CharacterService {
   private readonly characterBaseService: CharacterBaseService
   private readonly starActService: StarActService
   private readonly senseService: SenseService
   private readonly characterBloomService: CharacterBloomService
+  private readonly storyEventService: StoryEventService
+  private readonly gachaService: GachaService
 
   private readonly characterCalculator: CharacterCalculator
   public constructor (private readonly dataProvider: DataProvider = DataProviderFactory.defaultDataProvider()) {
@@ -20,6 +24,8 @@ export class CharacterService {
     this.starActService = new StarActService(dataProvider)
     this.senseService = new SenseService(dataProvider)
     this.characterBloomService = new CharacterBloomService(dataProvider)
+    this.storyEventService = new StoryEventService(dataProvider)
+    this.gachaService = new GachaService(dataProvider)
 
     this.characterCalculator = new CharacterCalculator(dataProvider)
   }
@@ -34,6 +40,8 @@ export class CharacterService {
    */
   public async getCharacterDetail (id: number): Promise<CharacterDetail> {
     const character = await this.getCharacter(id)
+    const event = await this.storyEventService.getCharacterFirstAppearStoryEvent(character.displayStartAt)
+    const gacha = await this.gachaService.getCharacterFirstAppearGacha(character.id)
     return {
       name: character.name,
       rarity: character.rarity,
@@ -44,7 +52,9 @@ export class CharacterService {
       starAct: await this.starActService.getStarActDetail(character.starActMasterId, character.bloomBonusGroupMasterId),
       sense: await this.senseService.getSenseDetail(character.senseMasterId, character.bloomBonusGroupMasterId),
       bloomBonuses: await this.characterBloomService.getBloomBonusDetails(character.bloomBonusGroupMasterId),
-      displayStartAt: siriusTimestampToDate(character.displayStartAt)
+      displayStartAt: siriusTimestampToDate(character.displayStartAt),
+      event: event === undefined ? '无' : event.title,
+      gacha: gacha === undefined ? '无' : gacha.name
     }
   }
 }
@@ -59,4 +69,6 @@ interface CharacterDetail {
   sense: SenseDetail
   bloomBonuses: BloomBonusDetail[]
   displayStartAt: Date
+  event: string
+  gacha: string
 }
