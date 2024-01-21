@@ -1,22 +1,37 @@
-export const lights: Record<string, { condition: string, decrease: string }> = {
-  Alternative: {
+export const lights = [
+  {
+    type: 'Alternative',
+    typeChinese: '任意系',
+    typeChineseShort: '任意',
     condition: 'freeLight',
     decrease: 'DecreaseRequireAlternativeLight'
   },
-  Support: {
+  {
+    type: 'Support',
+    typeChinese: '支援系',
+    typeChineseShort: '绿',
     condition: 'supportLight',
     decrease: 'DecreaseRequireSupportLight'
   },
-  Control: {
+  {
+    type: 'Control',
+    typeChinese: '支配系',
+    typeChineseShort: '红',
     condition: 'controlLight',
     decrease: 'DecreaseRequireControlLight'
   },
-  Amplification: {
+  {
+    type: 'Amplification',
+    typeChinese: '增幅系',
+    typeChineseShort: '黄',
     condition: 'amplificationLight',
     decrease: 'DecreaseRequireAmplificationLight'
   },
-  Special: {
+  {
+    type: 'Special',
+    typeChinese: '特殊系',
+    typeChineseShort: '蓝',
     condition: 'specialLight',
     decrease: 'DecreaseRequireSpecialLight'
   }
-}
+]

@@ -9,6 +9,7 @@ import { siriusTimestampToDate } from '../util/time-util'
 import { CharacterCalculator, type CharacterStatusDetail } from '../character-calculator/character-calculator'
 import { GachaService } from '../gacha-service/gacha-service'
 import { StoryEventService } from '../story-event/story-event-service'
+import { characterBaseChineseNames } from '../common/character'
 
 export class CharacterService {
   private readonly characterBaseService: CharacterBaseService
@@ -30,6 +31,10 @@ export class CharacterService {
     this.characterCalculator = new CharacterCalculator(dataProvider)
   }
 
+  private async getCharacters (): Promise<Character[]> {
+    return await this.dataProvider.getMasterData<Character>('character')
+  }
+
   private async getCharacter (id: number): Promise<Character> {
     return await this.dataProvider.getMasterDataById<Character>('character', id)
   }
@@ -43,12 +48,14 @@ export class CharacterService {
     const event = await this.storyEventService.getCharacterFirstAppearStoryEvent(character.displayStartAt)
     const gacha = await this.gachaService.getCharacterFirstAppearGacha(character.id)
     return {
+      id: character.id,
       name: character.name,
       rarity: character.rarity,
       attribute: character.attribute,
       status: [await this.characterCalculator.getMinCharacterStatus(character),
         await this.characterCalculator.getMaxCharacterStatus(character)],
       characterBase: await this.characterBaseService.getCharacterBaseName(character.characterBaseMasterId),
+      characterBaseChinese: characterBaseChineseNames[character.id],
       starAct: await this.starActService.getStarActDetail(character.starActMasterId, character.bloomBonusGroupMasterId),
       sense: await this.senseService.getSenseDetail(character.senseMasterId, character.bloomBonusGroupMasterId),
       bloomBonuses: await this.characterBloomService.getBloomBonusDetails(character.bloomBonusGroupMasterId),
@@ -57,14 +64,24 @@ export class CharacterService {
       gacha: gacha === undefined ? '无' : gacha.name
     }
   }
+
+  /**
+   * 获得所有角色的数据
+   */
+  public async getAllCharacterDetails (): Promise<CharacterDetail[]> {
+    const characters = await this.getCharacters()
+    return await Promise.all(characters.map(async it => await this.getCharacterDetail(it.id)))
+  }
 }
 
 interface CharacterDetail {
+  id: number
   name: string
   rarity: string
   attribute: string
   status: CharacterStatusDetail[]
   characterBase: string
+  characterBaseChinese: string
   starAct: StarActDetail
   sense: SenseDetail
   bloomBonuses: BloomBonusDetail[]

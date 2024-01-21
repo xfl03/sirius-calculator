@@ -9,3 +9,9 @@ export function getOrThrow<K, V> (map: Map<K, V>, key: K): V {
   if (value === undefined) throw new Error('key not found')
   return value
 }
+
+export function getOrDefault<K, V> (map: Map<K, V>, key: K, defaultValue: V): V {
+  const value = map.get(key)
+  if (value === undefined) return defaultValue
+  return value
+}
