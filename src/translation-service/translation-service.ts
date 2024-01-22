@@ -1,8 +1,8 @@
 import { getOrDefault, getOrThrow } from '../util/collection-util'
-import { effectTimes, effectTranslations } from '../common/effect'
-import { type Translation } from '../common/translation'
-import { characterBaseTranslations } from '../common/character'
-import { companyTranslations } from '../common/company'
+import { effectTimes, effectTranslations } from './effect-translation'
+import { type Translation } from './translation'
+import { characterBaseTranslations } from './character-translation'
+import { companyTranslations } from './company-translation'
 
 export class TranslationService {
   private readonly chineseTranslationMap = new Map<string, string>()

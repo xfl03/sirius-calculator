@@ -9,7 +9,7 @@ import { siriusTimestampToDate } from '../util/time-util'
 import { CharacterCalculator, type CharacterStatusDetail } from '../character-calculator/character-calculator'
 import { GachaService } from '../gacha-service/gacha-service'
 import { StoryEventService } from '../story-event/story-event-service'
-import { characterBaseChineseNames } from '../common/character'
+import { characterBaseChineseNames } from '../translation-service/character-translation'
 
 export class CharacterService {
   private readonly characterBaseService: CharacterBaseService
