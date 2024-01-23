@@ -2,7 +2,7 @@ import { type Translation } from './translation'
 
 export const effectTranslations: Translation[] = [{
   japanese: '[:gauge]のプリンシパルゲージを獲得',
-  chinese: '获得[:gauge]点P.计量槽'
+  chinese: '获得[:gauge]点Principle Gauge'
 }, {
   japanese: '[:score]倍のスコアを獲得',
   chinese: '获得自身演技力[:score]倍的分数'
@@ -44,4 +44,4 @@ export const effectTranslations: Translation[] = [{
   chinese: '获得总演技力[:score]倍的分数'
 }]
 
-export const effectTimes = [8, 9, 10]
+export const effectTimes: number[] = [1, 2, 3, 5, 8, 9, 10]

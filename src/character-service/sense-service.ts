@@ -9,12 +9,10 @@ import { TranslationService } from '../translation-service/translation-service'
 export class SenseService {
   private readonly effectService: EffectService
   private readonly characterBloomService: CharacterBloomService
-  private readonly translationService: TranslationService
 
   public constructor (private readonly dataProvider: DataProvider = DataProviderFactory.defaultDataProvider()) {
     this.effectService = new EffectService(dataProvider)
     this.characterBloomService = new CharacterBloomService(dataProvider)
-    this.translationService = new TranslationService()
   }
 
   private async getSense (id: number): Promise<Sense> {
@@ -69,7 +67,7 @@ export class SenseService {
     const descriptions = await Promise.all(sense.description.split('／')
       .map(async it => await this.getSenseDescription(sense, it)))
     const descriptionsChinese = await Promise.all(sense.description.split('／')
-      .map(it => this.translationService.getChineseTranslation(it))
+      .map(it => TranslationService.getInstance().getChineseTranslation(it))
       .map(async it => await this.getSenseDescription(sense, it)))
 
     return {

@@ -11,12 +11,10 @@ import { TranslationService } from '../translation-service/translation-service'
 export class StarActService {
   private readonly effectService: EffectService
   private readonly characterBloomService: CharacterBloomService
-  private readonly translationService: TranslationService
 
   public constructor (private readonly dataProvider: DataProvider = DataProviderFactory.defaultDataProvider()) {
     this.effectService = new EffectService(dataProvider)
     this.characterBloomService = new CharacterBloomService(dataProvider)
-    this.translationService = new TranslationService()
   }
 
   private async getStarAct (id: number): Promise<StarAct> {
@@ -39,7 +37,7 @@ export class StarActService {
     const scoreRange = toRangeString(base, base + level * 5)
     const description = starAct.description
       .replaceAll('[:score]', scoreRange)
-    const descriptionChinese = this.translationService.getChineseTranslation(starAct.description)
+    const descriptionChinese = TranslationService.getInstance().getChineseTranslation(starAct.description)
       .replaceAll('[:score]', scoreRange)
     const condition = await this.getStarActCondition(starAct.starActConditionMasterId)
     const conditions = await Promise.all(

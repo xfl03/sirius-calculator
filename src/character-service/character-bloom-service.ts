@@ -2,6 +2,7 @@ import type { DataProvider } from '../data-provider/data-provider'
 import { DataProviderFactory } from '../data-provider/data-provider-factory'
 import { EffectService } from '../effect-service/effect-service'
 import { type CharacterBloomBonusGroup } from '../master/character-bloom-bonus-group'
+import { TranslationService } from '../translation-service/translation-service'
 
 export class CharacterBloomService {
   private readonly effectService: EffectService
@@ -38,11 +39,14 @@ export class CharacterBloomService {
     const bonuses = await this.getCharacterBloomBonusGroup(id)
     return Array.from(new Set(bonuses.bloomBonuses.map(it => it.phase)))
       .sort((a, b) => a - b).map(phase => {
+        const descriptions = bonuses.bloomBonuses
+          .filter(it => it.phase === phase)
+          .map(it => it.description)
         return {
           phase,
-          descriptions: bonuses.bloomBonuses
-            .filter(it => it.phase === phase)
-            .map(it => it.description)
+          descriptions,
+          descriptionsChinese: descriptions
+            .map(it => TranslationService.getInstance().getChineseTranslation(it))
         }
       })
   }
@@ -51,4 +55,5 @@ export class CharacterBloomService {
 export interface BloomBonusDetail {
   phase: number
   descriptions: string[]
+  descriptionsChinese: string[]
 }

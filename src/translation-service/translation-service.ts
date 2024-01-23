@@ -3,11 +3,30 @@ import { effectTimes, effectTranslations } from './effect-translation'
 import { type Translation } from './translation'
 import { characterBaseTranslations } from './character-translation'
 import { companyTranslations } from './company-translation'
+import {
+  bloomLifeBonuses,
+  bloomPrincipleGaugeBonuses,
+  bloomScoreBonuses,
+  bloomStatusBonuses,
+  bloomTranslations
+} from './bloom-translation'
+import { lightTranslations } from './light-translation'
 
 export class TranslationService {
+  private static readonly translationService: TranslationService = new TranslationService()
+
   private readonly chineseTranslationMap = new Map<string, string>()
-  public constructor () {
+
+  private constructor () {
     this.buildChineseTranslationMap()
+  }
+
+  /**
+   * 饿汉式单例模式
+   * 注：线程安全
+   */
+  public static getInstance (): TranslationService {
+    return TranslationService.translationService
   }
 
   private addChineseTranslation (translation: Translation): void {
@@ -32,6 +51,10 @@ export class TranslationService {
     this.chineseTranslationMap.set(translation.japanese, translation.chinese)
   }
 
+  private static addReplacements (replacements: Map<string, Translation[]>, key: string, numbers: number[]): void {
+    replacements.set(key, numbers.map(it => { return { japanese: it.toString(), chinese: it.toString() } }))
+  }
+
   private buildChineseTranslationMap (): void {
     if (this.chineseTranslationMap.size > 0) {
       return
@@ -41,12 +64,17 @@ export class TranslationService {
     companyTranslations.forEach(it => { this.addChineseTranslation(it) })
 
     const replacements = new Map<string, Translation[]>()
-    replacements.set('[TIME]',
-      effectTimes.map(it => { return { japanese: it.toString(), chinese: it.toString() } }))
+    TranslationService.addReplacements(replacements, '[TIME]', effectTimes)
+    TranslationService.addReplacements(replacements, '[PG]', bloomPrincipleGaugeBonuses)
+    TranslationService.addReplacements(replacements, '[LIFE]', bloomLifeBonuses)
+    TranslationService.addReplacements(replacements, '[SCORE]', bloomScoreBonuses)
+    TranslationService.addReplacements(replacements, '[STATUS]', bloomStatusBonuses)
     replacements.set('[CHARACTER]', characterBaseTranslations)
     replacements.set('[COMPANY]', companyTranslations)
+    replacements.set('[LIGHT]', lightTranslations)
 
     effectTranslations.forEach(it => { this.dfsAddChineseTranslation(it, replacements) })
+    bloomTranslations.forEach(it => { this.dfsAddChineseTranslation(it, replacements) })
   }
 
   public getChineseTranslation (japanese: string): string {
