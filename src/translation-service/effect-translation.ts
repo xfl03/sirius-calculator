@@ -8,10 +8,10 @@ export const effectTranslations: Translation[] = [{
   chinese: '获得自身演技力[:score]倍的分数'
 }, {
   japanese: '[:sec]秒間、[COMPANY]のアクターにスターアクトスコア[:param11]％UP効果',
-  chinese: '[:sec]秒内，[COMPANY]的演员Sense中获得的分数提升[:param11]%'
+  chinese: '[:sec]秒内，[COMPANY]的演员Star Act中获得的分数提升[:param11]%'
 }, {
   japanese: '[:sec]秒間、[COMPANY]のアクターにセンススコア[:param11]％UP効果',
-  chinese: '[:sec]秒内，[COMPANY]的演员Star Act中获得的分数提升[:param11]%'
+  chinese: '[:sec]秒内，[COMPANY]的演员Sense中获得的分数提升[:param11]%'
 }, {
   japanese: '[COMPANY]のアクターのCTを[TIME]秒短縮',
   chinese: '[COMPANY]的演员CT缩短[TIME]秒'
