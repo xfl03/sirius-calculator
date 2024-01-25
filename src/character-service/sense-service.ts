@@ -51,7 +51,7 @@ export class SenseService {
     const base = sense.acquirableScorePercent / 100
     const level = sense.scoreUpPerLevel / 100
     if (base > 0 || level > 0) {
-      description = description.replaceAll('[:score]', toRangeString(base, base + level * 5))
+      description = description.replaceAll('[:score]', toRangeString(base, base + level * 4))
     }
 
     return description

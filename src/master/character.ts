@@ -17,6 +17,7 @@ export interface Character {
   senseEnhanceItemGroupMasterId: number
   firstEpisodeReleaseItemGroupId: number
   secondEpisodeReleaseItemGroupId: number
+  characterAwakeningItemGroupMasterId?: number
   displayStartAt: number
   displayEndAt: number
 }

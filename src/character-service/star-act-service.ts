@@ -34,7 +34,7 @@ export class StarActService {
     const starAct = await this.getStarAct(id)
     const base = starAct.acquirableScorePercent / 100
     const level = starAct.scoreUpPerLevel / 100
-    const scoreRange = toRangeString(base, base + level * 5)
+    const scoreRange = toRangeString(base, base + level * 4)
     const description = starAct.description
       .replaceAll('[:score]', scoreRange)
     const descriptionChinese = TranslationService.getInstance().getChineseTranslation(starAct.description)

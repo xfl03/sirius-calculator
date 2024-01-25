@@ -86,7 +86,10 @@ export class CharacterCalculator {
    */
   public async getMaxCharacterStatus (character: Character): Promise<CharacterStatusDetail> {
     return await this.getCharacterStatus(character, {
-      level: await this.getMaxCharacterLevel(), awakening: true, episode: CharacterEpisodeStatus.SECOND, bloom: 5
+      level: await this.getMaxCharacterLevel(),
+      awakening: character.characterAwakeningItemGroupMasterId !== undefined,
+      episode: CharacterEpisodeStatus.SECOND,
+      bloom: 5
     })
   }
 }
