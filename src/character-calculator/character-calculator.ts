@@ -5,11 +5,14 @@ import { findOrThrow } from '../util/collection-util'
 import { type Character } from '../master/character'
 import { CharacterBloomService } from '../character-service/character-bloom-service'
 import { siriusTimestampToDate } from '../util/time-util'
+import { CharacterEpisodeService, CharacterEpisodeStatus } from '../character-service/character-episode-service'
 
 export class CharacterCalculator {
   private readonly characterBloomService: CharacterBloomService
+  private readonly characterEpisodeService: CharacterEpisodeService
   public constructor (private readonly dataProvider: DataProvider = DataProviderFactory.defaultDataProvider()) {
     this.characterBloomService = new CharacterBloomService(dataProvider)
+    this.characterEpisodeService = new CharacterEpisodeService(dataProvider)
   }
 
   private async getCharacterLevel (level: number): Promise<CharacterLevel> {
@@ -88,7 +91,7 @@ export class CharacterCalculator {
     return await this.getCharacterStatus(character, {
       level: await this.getMaxCharacterLevel(),
       awakening: character.characterAwakeningItemGroupMasterId !== undefined,
-      episode: CharacterEpisodeStatus.SECOND,
+      episode: await this.characterEpisodeService.getCharacterMaxEpisodeStatus(character.id),
       bloom: 5
     })
   }
@@ -108,9 +111,4 @@ export interface CharacterStatusDetail {
     expression: number
     concentration: number
   }
-}
-export enum CharacterEpisodeStatus {
-  NONE = 'None',
-  FIRST = 'First',
-  SECOND = 'Second'
 }

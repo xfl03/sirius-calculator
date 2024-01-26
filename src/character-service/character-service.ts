@@ -10,6 +10,7 @@ import { CharacterCalculator, type CharacterStatusDetail } from '../character-ca
 import { GachaService } from '../gacha-service/gacha-service'
 import { StoryEventService } from '../story-event/story-event-service'
 import { characterBaseChineseNames } from '../translation-service/character-translation'
+import { type CharacterEpisodeDetail, CharacterEpisodeService } from './character-episode-service'
 
 export class CharacterService {
   private readonly characterBaseService: CharacterBaseService
@@ -18,6 +19,7 @@ export class CharacterService {
   private readonly characterBloomService: CharacterBloomService
   private readonly storyEventService: StoryEventService
   private readonly gachaService: GachaService
+  private readonly characterEpisodeService: CharacterEpisodeService
 
   private readonly characterCalculator: CharacterCalculator
   public constructor (private readonly dataProvider: DataProvider = DataProviderFactory.defaultDataProvider()) {
@@ -27,6 +29,7 @@ export class CharacterService {
     this.characterBloomService = new CharacterBloomService(dataProvider)
     this.storyEventService = new StoryEventService(dataProvider)
     this.gachaService = new GachaService(dataProvider)
+    this.characterEpisodeService = new CharacterEpisodeService(dataProvider)
 
     this.characterCalculator = new CharacterCalculator(dataProvider)
   }
@@ -61,7 +64,8 @@ export class CharacterService {
       bloomBonuses: await this.characterBloomService.getBloomBonusDetails(character.bloomBonusGroupMasterId),
       displayStartAt: siriusTimestampToDate(character.displayStartAt),
       event: event === undefined ? '无' : event.title,
-      gacha: gacha === undefined ? '无' : gacha.name
+      gacha: gacha === undefined ? '无' : gacha.name,
+      episodes: await this.characterEpisodeService.getCharacterEpisodeDetails(character.id)
     }
   }
 
@@ -88,4 +92,5 @@ interface CharacterDetail {
   displayStartAt: Date
   event: string
   gacha: string
+  episodes: CharacterEpisodeDetail[]
 }
