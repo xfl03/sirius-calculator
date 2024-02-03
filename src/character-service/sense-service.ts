@@ -58,6 +58,24 @@ export class SenseService {
   }
 
   /**
+   * 获得Sense（小技能）的效果类型
+   * @param sense
+   */
+  private async getSenseEffectTypes (sense: Sense): Promise<string[]> {
+    const set = new Set<string>()
+    const preEffects = sense.preEffects.map(it => it.effectMasterId)
+    for (const id of preEffects) {
+      set.add(await this.effectService.getEffectType(id))
+    }
+    const branchEffects = sense.branches.flatMap(it => it.branchEffects)
+      .map(it => it.effectMasterId)
+    for (const id of branchEffects) {
+      set.add(await this.effectService.getEffectType(id))
+    }
+    return Array.from(set)
+  }
+
+  /**
    * 获得Sense（小技能）详情信息
    * @param id
    * @param bloomBonusGroupId
@@ -80,7 +98,8 @@ export class SenseService {
         origin: sense.coolTime,
         bloom: sense.coolTime - await this.characterBloomService
           .getBloomBonusTotal(bloomBonusGroupId, 'SenseRecastDown')
-      }
+      },
+      effectTypes: await this.getSenseEffectTypes(sense)
     }
   }
 }
@@ -95,4 +114,5 @@ export interface SenseDetail {
     origin: number
     bloom: number
   }
+  effectTypes: string[]
 }

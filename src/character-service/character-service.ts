@@ -8,7 +8,7 @@ import { type Character } from '../master/character'
 import { siriusTimestampToDate } from '../util/time-util'
 import { CharacterCalculator, type CharacterStatusDetail } from '../character-calculator/character-calculator'
 import { GachaService } from '../gacha-service/gacha-service'
-import { StoryEventService } from '../story-event/story-event-service'
+import { StoryEventService } from '../event-service/story-event-service'
 import { characterBaseChineseNames } from '../translation-service/character-translation'
 import { type CharacterEpisodeDetail, CharacterEpisodeService } from './character-episode-service'
 

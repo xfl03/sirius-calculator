@@ -49,4 +49,13 @@ export class EffectService {
     const effect = await this.getEffect(id)
     return effect.durationSecond
   }
+
+  /**
+   * 获得效果类型
+   * @param id
+   */
+  public async getEffectType (id: number): Promise<string> {
+    const effect = await this.getEffect(id)
+    return effect.type
+  }
 }
