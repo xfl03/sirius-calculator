@@ -94,6 +94,7 @@ export class SenseService {
       descriptionsChinese,
       type: sense.type,
       lightCount: sense.lightCount,
+      acquirableGauge: sense.acquirableGauge,
       coolTime: {
         origin: sense.coolTime,
         bloom: sense.coolTime - await this.characterBloomService
@@ -110,6 +111,7 @@ export interface SenseDetail {
   descriptionsChinese: string[]
   type: string
   lightCount: number
+  acquirableGauge: number
   coolTime: {
     origin: number
     bloom: number

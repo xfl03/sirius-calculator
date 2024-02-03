@@ -26,7 +26,7 @@ export const effectTranslations: Translation[] = [{
   chinese: '队伍中有凤心菜编成时，凤心菜代替发动Sense，同时使凤心菜的分数获得量提高[:pre2]%，Star Act分数获得量提升[:pre3]%'
 }, {
   japanese: 'センス発動後、追加で[:param11]のプリンシパルゲージを獲得',
-  chinese: 'Sense发动后，追加获得[:param11]点P.计量槽'
+  chinese: 'Sense发动后，追加获得[:param11]点Principle Gauge'
 }, {
   japanese: 'ライフが多いほど[CHARACTER]のスコア獲得量UP（最大＋100％）',
   chinese: '血量越多，[CHARACTER]的分数获得量越高（最大+100％）'
