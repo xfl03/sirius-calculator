@@ -5,7 +5,7 @@ import { characterBaseTranslations } from './character-translation'
 import { companyTranslations } from './company-translation'
 import {
   bloomLifeBonuses,
-  bloomPrincipleGaugeBonuses,
+  bloomPrincipalGaugeBonuses,
   bloomScoreBonuses,
   bloomStatusBonuses,
   bloomTranslations
@@ -65,7 +65,7 @@ export class TranslationService {
 
     const replacements = new Map<string, Translation[]>()
     TranslationService.addReplacements(replacements, '[TIME]', effectTimes)
-    TranslationService.addReplacements(replacements, '[PG]', bloomPrincipleGaugeBonuses)
+    TranslationService.addReplacements(replacements, '[PG]', bloomPrincipalGaugeBonuses)
     TranslationService.addReplacements(replacements, '[LIFE]', bloomLifeBonuses)
     TranslationService.addReplacements(replacements, '[SCORE]', bloomScoreBonuses)
     TranslationService.addReplacements(replacements, '[STATUS]', bloomStatusBonuses)

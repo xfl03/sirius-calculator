@@ -11,7 +11,7 @@ export const bloomTranslations: Translation[] = [{
   chinese: '公演的报酬量上升10%'
 }, {
   japanese: '初期プリンシパルゲージが[PG]上昇',
-  chinese: '初始Principle Gauge上升[PG]'
+  chinese: '初始Principal Gauge上升[PG]'
 }, {
   japanese: '初期ライフが[LIFE]上昇',
   chinese: '初始血量上升[LIFE]'
@@ -23,7 +23,7 @@ export const bloomTranslations: Translation[] = [{
   chinese: '演技力上升[STATUS]%'
 }]
 
-export const bloomPrincipleGaugeBonuses = [20, 30, 50]
+export const bloomPrincipalGaugeBonuses = [20, 30, 50]
 export const bloomLifeBonuses = [40, 60, 100]
 export const bloomScoreBonuses = [1, 2, 3, 5, 10]
 export const bloomStatusBonuses = [2, 3, 4, 6, 8, 12, 16, 18, 24]
