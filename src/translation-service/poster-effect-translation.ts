@@ -4,6 +4,9 @@ export const posterEffectTranslations: Translation[] = [{
   japanese: '全アクターの演技力が[:param11]%上昇',
   chinese: '所有演员的演技力提升[:param11]%'
 }, {
+  japanese: '全アクターの演技力が[:param11]％上昇',
+  chinese: '所有演员的演技力提升[:param11]%'
+}, {
   japanese: '[COMPANY]に所属するアクターの演技力が[:param11]%上昇',
   chinese: '[COMPANY]的演员的演技力提升[:param11]%'
 }, {
@@ -20,6 +23,9 @@ export const posterEffectTranslations: Translation[] = [{
   chinese: '公演开始时，获得[:param11]点Principle Gauge'
 }, {
   japanese: '自身の[CHARACTER_STATUS]が[:param11]%上昇',
+  chinese: '自身的[CHARACTER_STATUS]提升[:param11]%'
+}, {
+  japanese: '自身の[CHARACTER_STATUS]が[:param11]％上昇',
   chinese: '自身的[CHARACTER_STATUS]提升[:param11]%'
 }, {
   japanese: 'センス発動直後、自身の[CHARACTER_STATUS]の[:param11]倍のスコアを獲得',
@@ -65,10 +71,13 @@ export const posterEffectTranslations: Translation[] = [{
   chinese: '队伍中编成的属性数越少，自身的[CHARACTER_STATUS]上升越高（1属性：[:param11]%/2属性：[:param21]%/3属性：[:param31]%/4属性：[:param41]%）'
 }, {
   japanese: '公演開始時、[LIGHT_ADDITION]を[:param11]個付与（効果は公演開始時1回のみ発動する）',
-  chinese: '公演开始时，给予[:param11]个[LIGHT]（效果只在公演开始时发动1次）'
+  chinese: '公演开始时，给予[:param11]个[LIGHT_ADDITION]（效果只在公演开始时发动1次）'
 }, {
   japanese: '公演開始時、[LIGHT_ADDITION]を[:param11]付与（効果は公演開始時1回のみ発動する）',
-  chinese: '公演开始时，给予[:param11]个[LIGHT]（效果只在公演开始时发动1次）'
+  chinese: '公演开始时，给予[:param11]个[LIGHT_ADDITION]（效果只在公演开始时发动1次）'
+}, {
+  japanese: '公演と協力公演の公演報酬が[:param11]%増加（アクセサリーを除く）',
+  chinese: '公演和协力公演的公演报酬提升[:param11]%（饰品除外）'
 }, {
   japanese: '公演と協力公演の公演報酬が[:param11]％増加（アクセサリーを除く）',
   chinese: '公演和协力公演的公演报酬提升[:param11]%（饰品除外）'

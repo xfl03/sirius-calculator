@@ -21,7 +21,7 @@ export const characterBaseChineseNames: Record<number, string> = {
   402: '白丸美兔',
   403: '阿岐留卡米拉',
   404: '猫足蕾',
-  405: '千寿伊吕波'
+  405: '本巢叶羽'
 }
 
 export const characterBaseTranslations: Translation[] = [{

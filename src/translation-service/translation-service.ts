@@ -92,7 +92,7 @@ export class TranslationService {
   }
 
   public getChineseTranslation (japanese: string): string {
-    return getOrDefault(this.chineseTranslationMap, japanese, japanese)
+    return getOrDefault(this.chineseTranslationMap, japanese.trim(), japanese)
   }
 
   public getAllTranslations (): Map<string, string> {
