@@ -1,8 +1,13 @@
-import { type DataProvider, type HasId } from './data-provider'
+import { DataProvider, type HasId } from './data-provider'
 import { getOrThrow } from '../util/collection-util'
 
-export class CachedDataProvider implements DataProvider {
+/**
+ * 装饰者模式
+ * 给数据获取的具体实现增加全方位的缓存
+ */
+export class CachedDataProvider extends DataProvider {
   public constructor (private readonly dataProvider: DataProvider) {
+    super()
   }
 
   private static readonly globalCache = new Map<string, any>()

@@ -1,7 +1,11 @@
 import { getOrDefault, getOrThrow } from '../util/collection-util'
-import { effectTimes, effectTranslations } from './effect-translation'
+import { effectTimes, characterEffectTranslations } from './character-effect-translation'
 import { type Translation } from './translation'
-import { characterBaseTranslations } from './character-translation'
+import {
+  characterAttributeTranslations,
+  characterBaseTranslations,
+  characterStatusTranslations
+} from './character-translation'
 import { companyTranslations } from './company-translation'
 import {
   bloomLifeBonuses,
@@ -10,7 +14,8 @@ import {
   bloomStatusBonuses,
   bloomTranslations
 } from './bloom-translation'
-import { lightTranslations } from './light-translation'
+import { lightAdditionTranslations, lightTranslations } from './light-translation'
+import { posterEffectRequirementTranslations, posterEffectTranslations } from './poster-effect-translation'
 
 export class TranslationService {
   private static readonly translationService: TranslationService = new TranslationService()
@@ -55,6 +60,10 @@ export class TranslationService {
     replacements.set(key, numbers.map(it => { return { japanese: it.toString(), chinese: it.toString() } }))
   }
 
+  private addTranslations (translations: Translation[], replacements: Map<string, Translation[]>): void {
+    translations.forEach(it => { this.dfsAddChineseTranslation(it, replacements) })
+  }
+
   private buildChineseTranslationMap (): void {
     if (this.chineseTranslationMap.size > 0) {
       return
@@ -72,12 +81,21 @@ export class TranslationService {
     replacements.set('[CHARACTER]', characterBaseTranslations)
     replacements.set('[COMPANY]', companyTranslations)
     replacements.set('[LIGHT]', lightTranslations)
+    replacements.set('[ATTRIBUTE]', characterAttributeTranslations)
+    replacements.set('[CHARACTER_STATUS]', characterStatusTranslations)
+    replacements.set('[LIGHT_ADDITION]', lightAdditionTranslations)
 
-    effectTranslations.forEach(it => { this.dfsAddChineseTranslation(it, replacements) })
-    bloomTranslations.forEach(it => { this.dfsAddChineseTranslation(it, replacements) })
+    this.addTranslations(characterEffectTranslations, replacements)
+    this.addTranslations(bloomTranslations, replacements)
+    this.addTranslations(posterEffectTranslations, replacements)
+    this.addTranslations(posterEffectRequirementTranslations, replacements)
   }
 
   public getChineseTranslation (japanese: string): string {
     return getOrDefault(this.chineseTranslationMap, japanese, japanese)
+  }
+
+  public getAllTranslations (): Map<string, string> {
+    return new Map(this.chineseTranslationMap)
   }
 }

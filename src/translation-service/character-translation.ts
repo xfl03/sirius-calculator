@@ -88,3 +88,31 @@ export const characterBaseTranslations: Translation[] = [{
   japanese: '叶羽',
   chinese: '本巢叶羽'
 }]
+
+export const characterStatusTranslations: Translation[] = [{
+  japanese: '歌唱力',
+  chinese: '歌唱力'
+}, {
+  japanese: '表現力',
+  chinese: '表现力'
+}, {
+  japanese: '集中力',
+  chinese: '集中力'
+}, {
+  japanese: '演技力',
+  chinese: '演技力'
+}]
+
+export const characterAttributeTranslations: Translation[] = [{
+  japanese: '<color=#ff679d>憐属性</color>',
+  chinese: '<color=#ff679d>怜属性</color>'
+}, {
+  japanese: '<color=#33B4DF>凛属性</color>',
+  chinese: '<color=#33B4DF>凛属性</color>'
+}, {
+  japanese: '<color=#7AC940>彩属性</color>',
+  chinese: '<color=#7AC940>彩属性</color>'
+}, {
+  japanese: '<color=#FF9314>陽属性</color>',
+  chinese: '<color=#FF9314>阳属性</color>'
+}]

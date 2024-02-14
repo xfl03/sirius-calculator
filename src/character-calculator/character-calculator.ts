@@ -37,8 +37,16 @@ export class CharacterCalculator {
     }
   }
 
-  private static getStatus (base: number, levelBonus: number, bonus: number): number {
-    return Math.floor(base * levelBonus * bonus)
+  private static getStatus (
+    baseValue: number, storyReadBonus: number, characterLevelFactor: number, awakeningPhase: number = 0,
+    baseCorrectionEffectPercent: number = 0, starRankPercent: number = 0
+  ): number {
+    const status = characterLevelFactor /
+        100.0 *
+        (storyReadBonus + baseValue) *
+        ((baseCorrectionEffectPercent / 100.0 + Math.fround(Math.fround(awakeningPhase) * 10.0) +
+                100.0 + starRankPercent) / 100.0)
+    return Math.floor(status)
   }
 
   /**
@@ -53,12 +61,11 @@ export class CharacterCalculator {
     character: Character,
     { level = 1, awakening = false, episode = CharacterEpisodeStatus.NONE, bloom = 0 }: CharacterStatusPreset
   ): Promise<CharacterStatusDetail> {
-    const level0 = await this.getCharacterLevel(level)
-    const levelBonus = level0.characterStatusLevel / 100
-    const base = CharacterCalculator.getEpisodeBonus(episode)
-    const bonus = (100 + await this.characterBloomService
-      .getBloomBonusTotal(character.bloomBonusGroupMasterId, 'BaseCorrection', bloom) / 100 +
-        (awakening ? 10 : 0)) / 100
+    const storyReadBonus = CharacterCalculator.getEpisodeBonus(episode)
+    const characterLevelFactor = (await this.getCharacterLevel(level)).characterStatusLevel
+    const awakenPhase = awakening ? 1 : 0
+    const baseCorrectionEffectPercent = await this.characterBloomService
+      .getBloomBonusTotal(character.bloomBonusGroupMasterId, 'BaseCorrection', bloom)
     return {
       preset: {
         level,
@@ -67,10 +74,13 @@ export class CharacterCalculator {
         bloom
       },
       status: {
-        vocal: CharacterCalculator.getStatus(character.minLevelStatus.vocal + base, levelBonus, bonus),
-        expression: CharacterCalculator.getStatus(character.minLevelStatus.expression + base, levelBonus, bonus),
+        vocal: CharacterCalculator.getStatus(character.minLevelStatus.vocal, storyReadBonus, characterLevelFactor,
+          awakenPhase, baseCorrectionEffectPercent),
+        expression: CharacterCalculator.getStatus(character.minLevelStatus.expression, storyReadBonus,
+          characterLevelFactor, awakenPhase, baseCorrectionEffectPercent),
         concentration: CharacterCalculator
-          .getStatus(character.minLevelStatus.concentration + base, levelBonus, bonus)
+          .getStatus(character.minLevelStatus.concentration, storyReadBonus, characterLevelFactor,
+            awakenPhase, baseCorrectionEffectPercent)
       }
     }
   }

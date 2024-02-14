@@ -27,6 +27,17 @@ export class EffectService {
   }
 
   /**
+   * 获得效果的各等级具体数值
+   * @param id
+   * @param maxLevel
+   */
+  public async getEffectDetails (id: number, maxLevel: number): Promise<number[]> {
+    const effect = await this.getEffect(id)
+    return Array(maxLevel).fill(0).map((_, i) => i + 1) // [1, 2, 3, ... , maxLevel]
+      .map(it => this.getEffectDetail(effect, it))
+  }
+
+  /**
    * 获取效果数值范围
    * 例如：1～2或1
    * @param id

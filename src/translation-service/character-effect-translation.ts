@@ -1,6 +1,6 @@
 import { type Translation } from './translation'
 
-export const effectTranslations: Translation[] = [{
+export const characterEffectTranslations: Translation[] = [{
   japanese: '[:gauge]のプリンシパルゲージを獲得',
   chinese: '获得[:gauge]点Principal Gauge'
 }, {

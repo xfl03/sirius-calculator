@@ -31,7 +31,7 @@ export class SenseService {
     for (let i = 0; i < sense.branches.length; ++i) {
       const branch = sense.branches[i]
       for (let j = 0; j < branch.branchEffects.length; ++j) {
-        const effect = branch.branchEffects[i]
+        const effect = branch.branchEffects[j]
         description = description.replaceAll(`[:param${i + 1}${j + 1}]`,
           await this.effectService.getEffectRange(effect.effectMasterId, 1, 5))
         const durationSecond = await this.effectService.getEffectDurationSecond(effect.effectMasterId)
