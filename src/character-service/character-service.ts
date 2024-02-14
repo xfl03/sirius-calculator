@@ -7,7 +7,7 @@ import { type StarActDetail, StarActService } from './star-act-service'
 import { type Character } from '../master/character'
 import { siriusTimestampToDate } from '../util/time-util'
 import { CharacterCalculator, type CharacterStatusDetail } from '../character-calculator/character-calculator'
-import { GachaService } from '../gacha-service/gacha-service'
+import { GachaService, type GachaType } from '../gacha-service/gacha-service'
 import { StoryEventService } from '../event-service/story-event-service'
 import { characterBaseChineseNames } from '../translation-service/character-translation'
 import { type CharacterEpisodeDetail, CharacterEpisodeService } from './character-episode-service'
@@ -48,8 +48,8 @@ export class CharacterService {
    */
   public async getCharacterDetail (id: number): Promise<CharacterDetail> {
     const character = await this.getCharacter(id)
-    const event = await this.storyEventService.getCharacterFirstAppearStoryEvent(character.displayStartAt)
-    const gacha = await this.gachaService.getCharacterFirstAppearGacha(character.id)
+    const event = await this.storyEventService.getFirstAppearStoryEvent(character.displayStartAt)
+    const gacha = await this.gachaService.getCharacterFirstAppearGacha(character.id, character.displayStartAt)
     return {
       id: character.id,
       name: character.name,
@@ -63,8 +63,9 @@ export class CharacterService {
       sense: await this.senseService.getSenseDetail(character.senseMasterId, character.bloomBonusGroupMasterId),
       bloomBonuses: await this.characterBloomService.getBloomBonusDetails(character.bloomBonusGroupMasterId),
       displayStartAt: siriusTimestampToDate(character.displayStartAt),
-      event: event === undefined ? '无' : event.title,
-      gacha: gacha === undefined ? '无' : gacha.name,
+      event: event.title,
+      gacha: gacha.name,
+      type: gacha.type,
       episodes: await this.characterEpisodeService.getCharacterEpisodeDetails(character.id)
     }
   }
@@ -92,5 +93,6 @@ interface CharacterDetail {
   displayStartAt: Date
   event: string
   gacha: string
+  type: GachaType
   episodes: CharacterEpisodeDetail[]
 }

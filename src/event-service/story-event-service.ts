@@ -10,12 +10,40 @@ export class StoryEventService {
     return await this.dataProvider.getMasterData<StoryEvent>('storyEvent')
   }
 
+  private async getStoryEvent (id: number): Promise<StoryEvent> {
+    return await this.dataProvider.getMasterDataById<StoryEvent>('storyEvent', id)
+  }
+
   /**
-   * 卡牌首次出现的活动
+   * 获得活动信息
+   * @param id
+   */
+  public async getStoryEventDetail (id: number): Promise<StoryEventDetail> {
+    const event = await this.getStoryEvent(id)
+    return {
+      id: event.id,
+      title: event.title
+    }
+  }
+
+  /**
+   * 卡牌、海报等首次出现的活动
    * @param displayStartAt
    */
-  public async getCharacterFirstAppearStoryEvent (displayStartAt: number): Promise<StoryEvent | undefined> {
+  public async getFirstAppearStoryEvent (displayStartAt: number): Promise<{ title: string }> {
     const events = await this.getStoryEvents()
-    return events.find(it => it.startDate <= displayStartAt && displayStartAt < it.forceEndDate)
+    const event = events
+      .find(it => it.startDate <= displayStartAt && displayStartAt < it.forceEndDate)
+    if (event !== undefined) {
+      return await this.getStoryEventDetail(event.id)
+    }
+    return {
+      title: '无'
+    }
   }
+}
+
+interface StoryEventDetail {
+  id: number
+  title: string
 }

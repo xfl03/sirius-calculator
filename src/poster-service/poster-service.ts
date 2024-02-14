@@ -5,13 +5,19 @@ import { CharacterBaseService } from '../character-service/character-base-servic
 import { type Poster } from '../master/poster'
 import { siriusTimestampToDate } from '../util/time-util'
 import { characterBaseChineseNames } from '../translation-service/character-translation'
+import { GachaService, type GachaType } from '../gacha-service/gacha-service'
+import { StoryEventService } from '../event-service/story-event-service'
 
 export class PosterService {
   private readonly characterBaseService: CharacterBaseService
   private readonly posterAbilityService: PosterAbilityService
+  private readonly storyEventService: StoryEventService
+  private readonly gachaService: GachaService
   public constructor (private readonly dataProvider: DataProvider = DataProviderFactory.defaultDataProvider()) {
     this.characterBaseService = new CharacterBaseService(dataProvider)
     this.posterAbilityService = new PosterAbilityService(dataProvider)
+    this.storyEventService = new StoryEventService(dataProvider)
+    this.gachaService = new GachaService(dataProvider)
   }
 
   private async getPosters (): Promise<Poster[]> {
@@ -28,6 +34,8 @@ export class PosterService {
    */
   public async getPosterDetail (id: number): Promise<PosterDetail> {
     const poster = await this.getPoster(id)
+    const event = await this.storyEventService.getFirstAppearStoryEvent(poster.displayStartAt)
+    const gacha = await this.gachaService.getPosterFirstAppearGacha(poster.id, poster.displayStartAt)
     return {
       id: poster.id,
       name: poster.name,
@@ -38,7 +46,10 @@ export class PosterService {
       appearanceCharacterBasesChinese: poster.appearanceCharacterBaseMasterIds
         .map(it => characterBaseChineseNames[it]),
       displayStartAt: siriusTimestampToDate(poster.displayStartAt),
-      abilities: await this.posterAbilityService.getPosterAbilityDetails(poster)
+      abilities: await this.posterAbilityService.getPosterAbilityDetails(poster),
+      event: event.title,
+      gacha: gacha.name,
+      type: gacha.type
     }
   }
 
@@ -60,4 +71,7 @@ interface PosterDetail {
   appearanceCharacterBasesChinese: string[]
   displayStartAt: Date
   abilities: PosterAbilityDetail[]
+  event: string
+  gacha: string
+  type: GachaType
 }
