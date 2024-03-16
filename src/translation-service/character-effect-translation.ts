@@ -31,6 +31,9 @@ export const characterEffectTranslations: Translation[] = [{
   japanese: 'ライフが多いほど[CHARACTER]のスコア獲得量UP（最大＋100％）',
   chinese: '血量越多，[CHARACTER]的分数获得量越高（最大+100％）'
 }, {
+  japanese: 'ライフが多いほどここなのスコア獲得量UP（最大＋130％）',
+  chinese: '血量越多，[CHARACTER]的分数获得量越高（最大+130％）'
+}, {
   japanese: 'ライフが少ないほど[CHARACTER]のスコア獲得量UP（最大+100％）',
   chinese: '血量越少，[CHARACTER]的分数获得量越高（最大+100％）'
 }, {
@@ -42,6 +45,9 @@ export const characterEffectTranslations: Translation[] = [{
 }, {
   japanese: '総演技力の[:score]倍のスコアを獲得',
   chinese: '获得总演技力[:score]倍的分数'
+}, {
+  japanese: 'センス発動後、プリンシパルゲージの上限値が[:param11]上昇',
+  chinese: 'Sense发动后，Principal Gauge上限提升[:param11]点'
 }]
 
 export const effectTimes: number[] = [1, 2, 3, 5, 8, 9, 10]
