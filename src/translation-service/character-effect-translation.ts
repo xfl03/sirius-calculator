@@ -47,7 +47,7 @@ export const characterEffectTranslations: Translation[] = [{
   chinese: '获得总演技力[:score]倍的分数'
 }, {
   japanese: 'センス発動後、プリンシパルゲージの上限値が[:param11]上昇',
-  chinese: 'Sense发动后，Principal Gauge上限提升[:param11]点'
+  chinese: 'Sense发动后，Principal Gauge条上限值增加[:param11]'
 }]
 
 export const effectTimes: number[] = [1, 2, 3, 5, 8, 9, 10]
