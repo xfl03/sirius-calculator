@@ -28,6 +28,9 @@ export const characterEffectTranslations: Translation[] = [{
   japanese: 'センス発動後、追加で[:param11]のプリンシパルゲージを獲得',
   chinese: 'Sense发动后，追加获得[:param11]点Principal Gauge'
 }, {
+  japanese: 'センス発動直後、P.ゲージを[:param11]獲得',
+  chinese: 'Sense发动后，获得[:param11]点Principal Gauge'
+}, {
   japanese: 'ライフが多いほど[CHARACTER]のスコア獲得量UP（最大＋100％）',
   chinese: '血量越多，[CHARACTER]的分数获得量越高（最大+100％）'
 }, {
