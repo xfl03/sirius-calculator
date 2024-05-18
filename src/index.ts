@@ -1,4 +1,5 @@
 // Service
+export * from './accessory-service/accessory-service'
 export * from './character-service/character-service'
 export * from './poster-service/poster-service'
 
