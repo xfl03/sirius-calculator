@@ -9,10 +9,10 @@ export const accessoryTranslation: Translation[] = [{
   chinese: '公演和协力公演的公演报酬增加[:param1]%（饰品除外）'
 }, {
   japanese: '公演開始時、「SP光」を[:param1]付与（SP光はどの系統の光としても扱われる）',
-  chinese: '给予[:param1]个「SP光」'
+  chinese: '公演开始时，给予[:param1]个「SP光」'
 }, {
   japanese: '公演開始時、ライフが[:param1]上昇',
-  chinese: '给予[:param1]个「SP光」'
+  chinese: '公演开始时，提升[:param1]点血量'
 }, {
   japanese: '初期プリンシパルゲージが[:param1]上昇',
   chinese: '初始Principal Gauge上升[:param1]点'
@@ -23,8 +23,14 @@ export const accessoryTranslation: Translation[] = [{
   japanese: '自身の[CHARACTER_STATUS]が[:param1]%上昇',
   chinese: '自身的[CHARACTER_STATUS]提升[:param1]%'
 }, {
+  japanese: '自身の[CHARACTER_STATUS]が[:param1]％上昇',
+  chinese: '自身的[CHARACTER_STATUS]提升[:param1]%'
+}, {
   japanese: 'いろはが装備かつ劇団電姫に所属しているアクターのみで編成',
   chinese: '由伊吕波装备且队伍内只有剧团电姬的演员编成'
+}, {
+  japanese: 'カトリナ・ぱんだ・知冴・暦・リリヤ・緋花里が装備',
+  chinese: '由卡特莉娜·格利贝尔/柳场潘达/流石知冴/千寿历/莉莉亚·库尔特贝/与那国绯花里装备'
 }]
 
 export const accessoryRandomEffectTranslation: Record<number, AccessoryEffectDetail> = {
