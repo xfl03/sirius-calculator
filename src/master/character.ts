@@ -20,4 +20,5 @@ export interface Character {
   characterAwakeningItemGroupMasterId?: number
   displayStartAt: number
   displayEndAt: number
+  unlockText: string
 }

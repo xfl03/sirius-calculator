@@ -10,5 +10,7 @@ export interface StarAct {
   preEffects: EffectDetail[]
   branches: EffectBranch[]
   branchCondition1: string
+  conditionValue1?: number
   branchCondition2: string
+  conditionValue2?: number
 }

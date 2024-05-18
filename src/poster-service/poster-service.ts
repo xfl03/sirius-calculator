@@ -5,10 +5,11 @@ import { CharacterBaseService } from '../character-service/character-base-servic
 import { type Poster } from '../master/poster'
 import { siriusTimestampToDate } from '../util/time-util'
 import { characterBaseChineseNames } from '../translation-service/character-translation'
-import { GachaService, type GachaType } from '../gacha-service/gacha-service'
+import { GachaService } from '../gacha-service/gacha-service'
 import { StoryEventService } from '../event-service/story-event-service'
 import { type PosterStory } from '../master/poster-story'
 import { PosterStoryService } from './poster-story-service'
+import { type CharacterOrPosterType, getCharacterPosterType } from '../common/character-or-poster-type'
 
 export class PosterService {
   private readonly characterBaseService: CharacterBaseService
@@ -53,7 +54,7 @@ export class PosterService {
       abilities: await this.posterAbilityService.getPosterAbilityDetails(poster),
       event: event.title,
       gacha: gacha.name,
-      type: gacha.type,
+      type: getCharacterPosterType(poster.unlockText),
       stories: await this.posterStoryService.getPosterStories(poster.id)
     }
   }
@@ -78,6 +79,6 @@ interface PosterDetail {
   abilities: PosterAbilityDetail[]
   event: string
   gacha: string
-  type: GachaType
+  type: CharacterOrPosterType
   stories: PosterStory[]
 }

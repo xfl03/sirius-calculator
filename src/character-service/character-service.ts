@@ -7,10 +7,11 @@ import { type StarActDetail, StarActService } from './star-act-service'
 import { type Character } from '../master/character'
 import { siriusTimestampToDate } from '../util/time-util'
 import { CharacterCalculator, type CharacterStatusDetail } from '../character-calculator/character-calculator'
-import { GachaService, type GachaType } from '../gacha-service/gacha-service'
+import { GachaService } from '../gacha-service/gacha-service'
 import { StoryEventService } from '../event-service/story-event-service'
 import { characterBaseChineseNames } from '../translation-service/character-translation'
 import { type CharacterEpisodeDetail, CharacterEpisodeService } from './character-episode-service'
+import { type CharacterOrPosterType, getCharacterPosterType } from '../common/character-or-poster-type'
 
 export class CharacterService {
   private readonly characterBaseService: CharacterBaseService
@@ -65,7 +66,7 @@ export class CharacterService {
       displayStartAt: siriusTimestampToDate(character.displayStartAt),
       event: event.title,
       gacha: gacha.name,
-      type: gacha.type,
+      type: getCharacterPosterType(character.unlockText),
       episodes: await this.characterEpisodeService.getCharacterEpisodeDetails(character.id)
     }
   }
@@ -93,6 +94,6 @@ interface CharacterDetail {
   displayStartAt: Date
   event: string
   gacha: string
-  type: GachaType
+  type: CharacterOrPosterType
   episodes: CharacterEpisodeDetail[]
 }

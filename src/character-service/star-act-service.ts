@@ -1,19 +1,17 @@
 import type { DataProvider } from '../data-provider/data-provider'
 import { DataProviderFactory } from '../data-provider/data-provider-factory'
-import { EffectService } from '../effect-service/effect-service'
 import { type StarAct } from '../master/star-act'
 import { type StarActCondition } from '../master/star-act-condition'
 import { CharacterBloomService } from './character-bloom-service'
-import { toRangeString } from '../util/number-util'
 import { lights } from '../common/light'
-import { TranslationService } from '../translation-service/translation-service'
+import { CharacterSkillEffectService } from './character-skill-effect-service'
 
 export class StarActService {
-  private readonly effectService: EffectService
+  private readonly characterSkillEffectService: CharacterSkillEffectService
   private readonly characterBloomService: CharacterBloomService
 
   public constructor (private readonly dataProvider: DataProvider = DataProviderFactory.defaultDataProvider()) {
-    this.effectService = new EffectService(dataProvider)
+    this.characterSkillEffectService = new CharacterSkillEffectService(dataProvider)
     this.characterBloomService = new CharacterBloomService(dataProvider)
   }
 
@@ -32,13 +30,8 @@ export class StarActService {
    */
   public async getStarActDetail (id: number, bloomBonusGroupId: number): Promise<StarActDetail> {
     const starAct = await this.getStarAct(id)
-    const base = starAct.acquirableScorePercent / 100
-    const level = starAct.scoreUpPerLevel / 100
-    const scoreRange = toRangeString(base, base + level * 5)
-    const description = starAct.description
-      .replaceAll('[:score]', scoreRange)
-    const descriptionChinese = TranslationService.getInstance().getChineseTranslation(starAct.description)
-      .replaceAll('[:score]', scoreRange)
+    const { descriptions, descriptionsChinese } =
+      await this.characterSkillEffectService.getSkillTranslation(starAct, 6)
     const condition = await this.getStarActCondition(starAct.starActConditionMasterId)
     const conditions = await Promise.all(
       [condition.freeLight, condition.supportLight, condition.controlLight,
@@ -53,8 +46,8 @@ export class StarActService {
       }))
     return {
       // name: starAct.name,
-      description,
-      descriptionChinese,
+      descriptions,
+      descriptionsChinese,
       conditions
     }
   }
@@ -62,8 +55,8 @@ export class StarActService {
 
 export interface StarActDetail {
   // name: string
-  description: string
-  descriptionChinese: string
+  descriptions: string[]
+  descriptionsChinese: string[]
   conditions: StarActLightCondition[]
 }
 

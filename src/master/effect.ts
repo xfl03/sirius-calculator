@@ -27,5 +27,9 @@ export interface EffectDetail {
 export interface EffectBranch {
   order: number
   branchEffects: EffectDetail[]
+  judgeType1?: number
+  parameter1?: number
+  judgeType2?: number
+  parameter2?: number
   id: number
 }

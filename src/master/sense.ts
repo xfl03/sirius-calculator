@@ -13,5 +13,7 @@ export interface Sense {
   lightCount: number
   coolTime: number
   branchCondition1: string
+  conditionValue1?: number
   branchCondition2: string
+  conditionValue2?: number
 }

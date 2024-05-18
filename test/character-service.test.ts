@@ -3,7 +3,7 @@ import { writeFileSync } from 'fs'
 
 const characterService = new CharacterService()
 test('character', async () => {
-  const characterDetail = await characterService.getCharacterDetail(140320)
+  const characterDetail = await characterService.getCharacterDetail(140800)
   writeFileSync('out/characterDetail.json', JSON.stringify(characterDetail, null, 2))
 }, 30000)
 

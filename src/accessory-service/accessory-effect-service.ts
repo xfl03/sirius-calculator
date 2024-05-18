@@ -3,6 +3,7 @@ import type { DataProvider } from '../data-provider/data-provider'
 import { DataProviderFactory } from '../data-provider/data-provider-factory'
 import { type AccessoryEffect } from '../master/accessory-effect'
 import { TranslationService } from '../translation-service/translation-service'
+import { accessoryRandomEffectTranslation } from './accessory-translation'
 
 export class AccessoryEffectService {
   private readonly effectService: EffectService
@@ -26,7 +27,7 @@ export class AccessoryEffectService {
     const accessoryEffect = await this.getAccessoryEffect(id)
     const description = await this.getAccessoryEffectDescription(accessoryEffect, accessoryEffect.description)
     const descriptionChinese = await this.getAccessoryEffectDescription(accessoryEffect,
-      TranslationService.getInstance().getChineseTranslation(accessoryEffect.description))
+      TranslationService.getInstance().getChineseTranslationWithRequirement(accessoryEffect.description))
     return {
       name: accessoryEffect.name,
       description,
@@ -38,10 +39,15 @@ export class AccessoryEffectService {
    * 获得随机组合效果
    * @param groupId 组合ID
    */
-  public async getAccessoryEffectDetails (groupId: number): Promise<AccessoryEffectDetail[]> {
-    const accessoryEffects = await this.getAccessoryEffects()
-    return await Promise.all(accessoryEffects.filter(it => it.id / 100 === groupId)
-      .map(async it => await this.getAccessoryEffectDetail(it.id)))
+  public async getAccessoryEffectDetails (groupId: number): Promise<AccessoryEffectDetail> {
+    if (accessoryRandomEffectTranslation[groupId] === undefined) {
+      return {
+        name: `随机组${groupId}`,
+        description: '待完善',
+        descriptionChinese: '待完善'
+      }
+    }
+    return accessoryRandomEffectTranslation[groupId]
   }
 
   private async getAccessoryEffectDescription (accessoryEffect: AccessoryEffect, description: string): Promise<string> {

@@ -1,6 +1,7 @@
 export interface Poster {
   id: number
   name: string
+  organizeRestrictGroupId?: number
   rarity: string
   levelPatternGroupMasterId: number
   subTitlePositionX1: number
@@ -19,5 +20,5 @@ export interface Poster {
   isRestrictItemBreakThrough: boolean
   displayStartAt: number
   displayEndAt: number
-  organizeRestrictGroupId?: number
+  unlockText: string
 }

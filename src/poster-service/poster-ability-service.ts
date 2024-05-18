@@ -44,11 +44,6 @@ export class PosterAbilityService {
     return ret
   }
 
-  private getDescriptionTranslation (description: string): string {
-    const descriptions = description.split('　◆発動条件：')
-    return descriptions.map(it => this.translationService.getChineseTranslation(it)).join('　◆发动条件：')
-  }
-
   /**
    * 获得海报的具体能力
    * @param poster
@@ -62,7 +57,7 @@ export class PosterAbilityService {
         name: it.name,
         description: await this.getPosterAbilityDescription(it.description, it, maxLevel),
         descriptionChinese: await this.getPosterAbilityDescription(
-          this.getDescriptionTranslation(it.description), it, maxLevel),
+          this.translationService.getChineseTranslationWithRequirement(it.description), it, maxLevel),
         effectDetails: await this.getPosterAbilityEffectDetails(it, maxLevel),
         type: it.type,
         releaseLevelAt: it.releaseLevelAt

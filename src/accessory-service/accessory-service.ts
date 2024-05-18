@@ -1,4 +1,3 @@
-import { EffectService } from '../effect-service/effect-service'
 import type { DataProvider } from '../data-provider/data-provider'
 import { DataProviderFactory } from '../data-provider/data-provider-factory'
 import { type Accessory } from '../master/accessory'
@@ -51,5 +50,5 @@ interface AccessoryDetail {
   name: string
   rarity: string
   effects: AccessoryEffectDetail[]
-  randomEffects: AccessoryEffectDetail[][]
+  randomEffects: AccessoryEffectDetail[]
 }

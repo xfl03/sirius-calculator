@@ -81,6 +81,9 @@ export const posterEffectTranslations: Translation[] = [{
 }, {
   japanese: '公演と協力公演の公演報酬が[:param11]％増加（アクセサリーを除く）',
   chinese: '公演和协力公演的公演报酬提升[:param11]%（饰品除外）'
+}, {
+  japanese: 'ストックされている[LIGHT_ADDITION]1個につき総演技力の[:param11]倍のスコアを獲得(最大5個)',
+  chinese: '当前每储存1个[LIGHT_ADDITION]，获得总演技力[:param11]倍的分数（最多计入5个）'
 }]
 
 export const posterEffectRequirementTranslations: Translation[] = [{

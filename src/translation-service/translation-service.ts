@@ -16,6 +16,7 @@ import {
 } from './bloom-translation'
 import { lightAdditionTranslations, lightTranslations } from './light-translation'
 import { posterEffectRequirementTranslations, posterEffectTranslations } from './poster-effect-translation'
+import { accessoryTranslation } from '../accessory-service/accessory-translation'
 
 export class TranslationService {
   private static readonly translationService: TranslationService = new TranslationService()
@@ -85,14 +86,28 @@ export class TranslationService {
     replacements.set('[CHARACTER_STATUS]', characterStatusTranslations)
     replacements.set('[LIGHT_ADDITION]', lightAdditionTranslations)
 
-    this.addTranslations(characterEffectTranslations, replacements)
+    this.addTranslations(accessoryTranslation, replacements)
     this.addTranslations(bloomTranslations, replacements)
+    this.addTranslations(characterEffectTranslations, replacements)
     this.addTranslations(posterEffectTranslations, replacements)
     this.addTranslations(posterEffectRequirementTranslations, replacements)
   }
 
+  /**
+   * 获得中文翻译
+   * @param japanese
+   */
   public getChineseTranslation (japanese: string): string {
     return getOrDefault(this.chineseTranslationMap, japanese.trim(), japanese)
+  }
+
+  /**
+   * 获得带有发动条件的中文翻译
+   * @param japanese
+   */
+  public getChineseTranslationWithRequirement (japanese: string): string {
+    const descriptions = japanese.split('　◆発動条件：')
+    return descriptions.map(it => this.getChineseTranslation(it)).join('　◆发动条件：')
   }
 
   public getAllTranslations (): Map<string, string> {
