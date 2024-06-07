@@ -1,6 +1,6 @@
 {
   "name": "sirius-calculator",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "World Dai Star Calculator.",
   "type": "module",
   "types": "dist/index.d.ts",

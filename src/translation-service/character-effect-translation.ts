@@ -51,6 +51,12 @@ export const characterEffectTranslations: Translation[] = [{
 }, {
   japanese: 'センス発動後、プリンシパルゲージの上限値が[:param11]上昇',
   chinese: 'Sense发动后，Principal Gauge条上限值增加[:param11]'
+}, {
+  japanese: 'ストックされている[LIGHT_ADDITION]1個につき総演技力の[:param11]倍のスコアを獲得(最大5個)',
+  chinese: '当前每储存1个[LIGHT_ADDITION]，获得总演技力[:param11]倍的分数（最多计入5个）'
+}, {
+  japanese: 'ストックされている[LIGHT_ADDITION]1個につき総演技力の[:param11]倍のスコアを追加で獲得(最大5個)',
+  chinese: '当前每储存1个[LIGHT_ADDITION]，获得总演技力[:param11]倍的分数（最多计入5个）'
 }]
 
 export const effectTimes: number[] = [1, 2, 3, 5, 8, 9, 10]

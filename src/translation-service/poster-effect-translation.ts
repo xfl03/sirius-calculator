@@ -62,7 +62,10 @@ export const posterEffectTranslations: Translation[] = [{
   chinese: '公演开始时，给予10次血量保护'
 }, {
   japanese: 'プリンシパルゲージの上限を1000上昇',
-  chinese: 'Principal Gauge的上限提升1000'
+  chinese: 'Principal Gauge的上限提升1000点'
+}, {
+  japanese: '公演開始時、Pゲージの上限が[:param11]上昇',
+  chinese: '公演开始时，Principal Gauge的上限提升[:param11]点'
 }, {
   japanese: 'センスを発動しなくなるが、自身の演技力が2倍',
   chinese: '演员的Sense无法发动，自身演技力翻倍'
@@ -81,9 +84,6 @@ export const posterEffectTranslations: Translation[] = [{
 }, {
   japanese: '公演と協力公演の公演報酬が[:param11]％増加（アクセサリーを除く）',
   chinese: '公演和协力公演的公演报酬提升[:param11]%（饰品除外）'
-}, {
-  japanese: 'ストックされている[LIGHT_ADDITION]1個につき総演技力の[:param11]倍のスコアを獲得(最大5個)',
-  chinese: '当前每储存1个[LIGHT_ADDITION]，获得总演技力[:param11]倍的分数（最多计入5个）'
 }]
 
 export const posterEffectRequirementTranslations: Translation[] = [{
